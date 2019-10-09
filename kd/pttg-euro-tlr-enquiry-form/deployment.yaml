@@ -112,11 +112,11 @@ spec:
                 name: slack-config
                 key: slack-channel-name
           - name: REDIS_HOST
-            value: redis
+            value: redis-tlr
           - name: REDIS_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: redis
+                name: redis-tlr
                 key: pass
           - name: CA_CERTS_PATH
             value: "/certs/tls.pem"
