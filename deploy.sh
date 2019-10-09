@@ -75,12 +75,12 @@ if [ "${ENVIRONMENT}" == "pr" ] ; then
     export DNS_PREFIX=
     export KC_REALM=pttg-production
     export PROD_OR_NOTPROD=prod
-    export DOMAIN_NAME=eu-settled-status-enquiries.service.gov.uk
+    export DOMAIN_NAME=european-temporary-leave-to-remain-enquiries.service.gov.uk
 else
     export DNS_PREFIX=${ENVIRONMENT}.notprod.
     export KC_REALM=pttg-qa
     export PROD_OR_NOTPROD=notprod
-    export DOMAIN_NAME=enquiry-rps.${DNS_PREFIX}pttg.homeoffice.gov.uk
+    export DOMAIN_NAME=enquiry-euro-tlr.${DNS_PREFIX}pttg.homeoffice.gov.uk
 
 
     if [[ -z ${BASIC_AUTH} ]] ; then
@@ -115,7 +115,7 @@ log "--- Finished!"
 log "--- deploying pttg-euro-tlr-enquiry-form"
 if ! kd $KD_ARGS \
        -f pttg-euro-tlr-enquiry-form/network-policy.yaml \
-       -f pttg-euro-tlr-enquiry-form/ingress-${PROD_OR_NOTPROD}.yaml \
+       -f pttg-euro-tlr-enquiry-form/ingress.yaml \
        -f pttg-euro-tlr-enquiry-form/secret.yaml \
        -f pttg-euro-tlr-enquiry-form/deployment.yaml \
        -f pttg-euro-tlr-enquiry-form/service.yaml; then
