@@ -75,7 +75,7 @@ if [ "${ENVIRONMENT}" == "pr" ] ; then
     export DNS_PREFIX=
     export KC_REALM=pttg-production
     export PROD_OR_NOTPROD=prod
-    export DOMAIN_NAME=european-temporary-leave-to-remain-enquiries.service.gov.uk
+    export DOMAIN_NAME=www.european-temporary-leave-to-remain-enquiries.service.gov.uk
 else
     export DNS_PREFIX=${ENVIRONMENT}.notprod.
     export KC_REALM=pttg-qa
