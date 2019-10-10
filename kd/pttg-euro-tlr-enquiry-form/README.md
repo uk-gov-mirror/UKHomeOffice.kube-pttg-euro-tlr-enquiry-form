@@ -1,6 +1,6 @@
 ## Secrets
 ### Notify credentials
-The `notify-credentials` secret should have a property of `api-key`.
+The `notify-credentials-tlr` secret should have a property of `api-key`.
 ### Redis
 Passwords for Redis are automatically generated on initial deploy by `kd`; see
 `redis/secret.yaml`.
