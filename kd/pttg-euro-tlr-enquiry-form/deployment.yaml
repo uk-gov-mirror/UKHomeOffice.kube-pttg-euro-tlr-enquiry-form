@@ -99,7 +99,7 @@ spec:
           - name: NOTIFY_BEARER_TOKEN
             valueFrom:
               secretKeyRef:
-                name: notify-credentials
+                name: notify-credentials-tlr
                 key: notify-bearer
           - name: SLACK_WEBHOOK_URL
             valueFrom:
@@ -125,7 +125,7 @@ spec:
           - name: NOTIFY_API_KEY
             valueFrom:
               secretKeyRef:
-                name: notify-credentials
+                name: notify-credentials-tlr
                 key: api-key
           - name: NOTIFY_RECIPIENT
             value: {{.NOTIFY_RECIPIENT}}
