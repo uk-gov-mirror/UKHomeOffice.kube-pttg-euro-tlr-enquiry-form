@@ -113,6 +113,8 @@ spec:
                 key: slack-channel-name
           - name: REDIS_HOST
             value: redis-tlr
+          - name: REDIS_PORT
+            value: '6379'
           - name: REDIS_PASSWORD
             valueFrom:
               secretKeyRef:
