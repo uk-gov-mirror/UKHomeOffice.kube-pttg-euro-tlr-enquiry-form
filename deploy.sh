@@ -3,6 +3,10 @@
 export KUBE_NAMESPACE=${KUBE_NAMESPACE}
 export KUBE_SERVER=${KUBE_SERVER}
 
+POISE_RANGES=62.25.109.196/32,52.209.62.128/25
+GOVWIFI_RANGES=167.98.162.0/25,167.98.158.128/25
+ACPTUNNEL_RANGES=52.56.221.216/32,18.130.11.142/32,18.130.6.5/32
+
 log()
 {
     if [[ $1 == ---* ]] ; then
@@ -35,6 +39,9 @@ if [[ ${ENVIRONMENT} == "pr" ]] ; then
     fi
     export NOTIFY_RECIPIENT=$NOTIFY_RECIPIENT_PROD
 else
+    export WHITELIST="${POISE_RANGES},${GOVWIFI_RANGES},${ACPTUNNEL_RANGES}"
+    echo Using WHITELIST=$WHITELIST
+
     export CA_URL="https://raw.githubusercontent.com/UKHomeOffice/acp-ca/master/acp-notprod.crt"
     if [[ ${ENVIRONMENT} == "test" ]] ; then
         log "--- deploying ${VERSION} to test namespace, using PTTG_RPS_TEST drone secret"
@@ -68,8 +75,6 @@ if ! wget --quiet $CA_URL -O $KUBE_CERTIFICATE_AUTHORITY; then
     log "[error] faled to download certificate authority!"
     exit 1
 fi
-
-export WHITELIST=${WHITELIST:-0.0.0.0/0}
 
 if [ "${ENVIRONMENT}" == "pr" ] ; then
     export DNS_PREFIX=
