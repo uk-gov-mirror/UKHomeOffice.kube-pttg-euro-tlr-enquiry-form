@@ -27,6 +27,9 @@ if [[ -z ${VERSION} ]] ; then
     exit 78
 fi
 
+# TODO EE-27521 Whitelist should only apply to non-prod once we have gone live.
+export WHITELIST="${POISE_RANGES},${GOVWIFI_RANGES},${ACPTUNNEL_RANGES}"
+echo Using WHITELIST=$WHITELIST
 
 if [[ ${ENVIRONMENT} == "pr" ]] ; then
     log "--- PRODUCTION PRODUCTION PRODUCTION"
@@ -39,9 +42,6 @@ if [[ ${ENVIRONMENT} == "pr" ]] ; then
     fi
     export NOTIFY_RECIPIENT=$NOTIFY_RECIPIENT_PROD
 else
-    export WHITELIST="${POISE_RANGES},${GOVWIFI_RANGES},${ACPTUNNEL_RANGES}"
-    echo Using WHITELIST=$WHITELIST
-
     export CA_URL="https://raw.githubusercontent.com/UKHomeOffice/acp-ca/master/acp-notprod.crt"
     if [[ ${ENVIRONMENT} == "test" ]] ; then
         log "--- deploying ${VERSION} to test namespace, using PTTG_RPS_TEST drone secret"
