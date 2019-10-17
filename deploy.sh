@@ -119,8 +119,8 @@ log "--- Finished!"
 
 INGRESS=pttg-euro-tlr-enquiry-form/ingress.yaml
 if [ "${USE_MAINTENANCE_INGRESS}" == "true" ] ; then
-  echo "--- Using the maintenance ingress."
-INGRESS=pttg-euro-tlr-enquiry-form/ingress-maintenance.yaml
+  log "--- Using the maintenance ingress."
+  INGRESS=pttg-euro-tlr-enquiry-form/ingress-maintenance.yaml
 fi
 
 log "--- deploying pttg-euro-tlr-enquiry-form"
