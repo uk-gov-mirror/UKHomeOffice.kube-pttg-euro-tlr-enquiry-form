@@ -47,7 +47,7 @@ spec:
             mountPath: /etc/ssl/certs
             readOnly: true
       - name: proxy
-        image: quay.io/ukhomeofficedigital/pttg-rps-enquiry-proxy:build-16
+        image: quay.io/ukhomeofficedigital/pttg-rps-enquiry-proxy:EE-27635-maintenance-page
         imagePullPolicy: IfNotPresent
         securityContext:
           runAsNonRoot: true
