@@ -117,10 +117,16 @@ fi
 
 log "--- Finished!"
 
+INGRESS=pttg-euro-tlr-enquiry-form/ingress.yaml
+if [ "${USE_MAINTENANCE_INGRESS}" == "true" ] ; then
+  echo "--- Using the maintenance ingress."
+INGRESS=pttg-euro-tlr-enquiry-form/ingress-maintenance.yaml
+fi
+
 log "--- deploying pttg-euro-tlr-enquiry-form"
 if ! kd $KD_ARGS \
        -f pttg-euro-tlr-enquiry-form/network-policy.yaml \
-       -f pttg-euro-tlr-enquiry-form/ingress.yaml \
+       -f $INGRESS \
        -f pttg-euro-tlr-enquiry-form/secret.yaml \
        -f pttg-euro-tlr-enquiry-form/deployment.yaml \
        -f pttg-euro-tlr-enquiry-form/service.yaml; then
