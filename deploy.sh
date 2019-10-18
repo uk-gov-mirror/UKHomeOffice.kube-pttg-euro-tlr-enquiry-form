@@ -117,10 +117,21 @@ fi
 
 log "--- Finished!"
 
+log "--- deploying pttg-euro-tlr-maintenance"
+if ! kd $KD_ARGS \
+        -f pttg-euro-tlr-enquiry-form/maintenance/ingress.yaml \
+        -f pttg-euro-tlr-enquiry-form/maintenance/deployment.yaml \
+        -f pttg-euro-tlr-enquiry-form/maintenance/service.yaml ; then
+  log "[error] cannot deploy pttg-euro-tlr-maintenance"
+  exit 1
+fi
+log "--- Finished!"
+
+
 INGRESS=pttg-euro-tlr-enquiry-form/ingress.yaml
 if [ "${USE_MAINTENANCE_INGRESS}" == "true" ] ; then
   log "--- Using the maintenance ingress."
-  INGRESS=pttg-euro-tlr-enquiry-form/ingress-maintenance.yaml
+  INGRESS=pttg-euro-tlr-enquiry-form/maintenance/ingress.yaml
 fi
 
 log "--- deploying pttg-euro-tlr-enquiry-form"
