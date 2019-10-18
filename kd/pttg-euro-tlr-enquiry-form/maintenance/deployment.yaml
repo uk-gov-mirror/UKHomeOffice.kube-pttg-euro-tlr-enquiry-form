@@ -47,7 +47,7 @@ spec:
             mountPath: /etc/ssl/certs
             readOnly: true
       - name:  pttg-euro-tlr-maintenance
-        image: quay.io/ukhomeofficedigital/pttg-euro-tlr-maintenance:TODO
+        image: quay.io/ukhomeofficedigital/pttg-euro-tlr-maintenance:EE-27492-correct-whitelist
         imagePullPolicy: IfNotPresent
         securityContext:
           runAsNonRoot: true
