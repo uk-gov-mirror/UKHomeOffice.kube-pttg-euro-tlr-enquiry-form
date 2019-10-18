@@ -34,7 +34,7 @@ spec:
           - --certs=/certs
           - --domain=pttg-euro-tlr-maintenance.${KUBE_NAMESPACE}.svc.cluster.local
           - --expiry=8760h
-          - --command=/usr/local/scripts/trigger_nginx_reload.sh
+          - --command=chmod +r /certs/* && /usr/local/scripts/trigger_nginx_reload.sh
         env:
           - name: KUBE_NAMESPACE
             valueFrom:
