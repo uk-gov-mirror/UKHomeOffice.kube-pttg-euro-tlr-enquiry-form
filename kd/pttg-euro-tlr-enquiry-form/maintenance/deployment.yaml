@@ -87,7 +87,7 @@ spec:
           - name: https
             containerPort: 10443
       - name:  pttg-euro-tlr-maintenance
-        image: quay.io/ukhomeofficedigital/pttg-enquiry-form-maintenance:47b0f618
+        image: quay.io/ukhomeofficedigital/pttg-enquiry-form-maintenance:build-21
         imagePullPolicy: IfNotPresent
         securityContext:
           runAsNonRoot: true
