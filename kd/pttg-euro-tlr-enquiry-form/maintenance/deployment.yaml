@@ -104,7 +104,7 @@ spec:
             cpu: 100m
         ports:
           - name: http
-            containerPort: 10080
+            containerPort: 8080
       volumes:
         - name: certs
           emptyDir:
