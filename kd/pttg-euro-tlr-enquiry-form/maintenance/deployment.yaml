@@ -34,7 +34,7 @@ spec:
           - --certs=/certs
           - --domain=pttg-euro-tlr-maintenance.${KUBE_NAMESPACE}.svc.cluster.local
           - --expiry=8760h
-          - --command='/usr/local/scripts/trigger_nginx_reload.sh'
+          - --command=/usr/local/scripts/trigger_nginx_reload.sh
         env:
           - name: KUBE_NAMESPACE
             valueFrom:
@@ -46,8 +46,8 @@ spec:
           - name: bundle
             mountPath: /etc/ssl/certs
             readOnly: true
-      - name:  pttg-euro-tlr-maintenance
-        image: quay.io/ukhomeofficedigital/pttg-enquiry-form-maintenance:EE-27635-initial-setup
+      - name: proxy
+        image: quay.io/ukhomeofficedigital/pttg-rps-enquiry-proxy:build-19
         imagePullPolicy: IfNotPresent
         securityContext:
           runAsNonRoot: true
@@ -63,10 +63,22 @@ spec:
             memory: "50Mi"
             cpu: 100m
         env:
+          - name: PROXY_SERVICE_HOST
+            value: '127.0.0.1'
+          - name: PROXY_SERVICE_PORT
+            value: '10080'
+          - name: NAXSI_USE_DEFAULT_RULES
+            value: 'FALSE'
+          - name: ENABLE_UUID_PARAM
+            value: 'FALSE'
+          - name: HTTPS_REDIRECT
+            value: 'FALSE'
           - name: SERVER_CERT
             value: /certs/tls.pem
           - name: SERVER_KEY
             value: /certs/tls-key.pem
+          - name: ADD_NGINX_SERVER_CFG
+            value: 'gzip off; location = /reload { allow 127.0.0.1; deny all; content_by_lua_block { os.execute("touch /tmp/nginx-reload-triggered; /usr/local/openresty/nginx/sbin/nginx -s reload; touch /tmp/nginx-reload-complete;") } }'
         volumeMounts:
           - name: certs
             mountPath: /certs
@@ -74,6 +86,25 @@ spec:
         ports:
           - name: https
             containerPort: 10443
+      - name:  pttg-euro-tlr-maintenance
+        image: quay.io/ukhomeofficedigital/pttg-enquiry-form-maintenance:02e1866d
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          runAsNonRoot: true
+          capabilities:
+            drop:
+             - SETUID
+             - SETGID
+        resources:
+          limits:
+            memory: "100Mi"
+            cpu: 100m
+          requests:
+            memory: "50Mi"
+            cpu: 100m
+        ports:
+          - name: http
+            containerPort: 10080
       volumes:
         - name: certs
           emptyDir:
