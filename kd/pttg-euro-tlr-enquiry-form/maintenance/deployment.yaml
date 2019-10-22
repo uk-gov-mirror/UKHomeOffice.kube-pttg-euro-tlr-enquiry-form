@@ -6,7 +6,7 @@ metadata:
   labels:
     version: {{.VERSION}}
 spec:
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
       name: pttg-euro-tlr-maintenance
@@ -66,7 +66,7 @@ spec:
           - name: PROXY_SERVICE_HOST
             value: '127.0.0.1'
           - name: PROXY_SERVICE_PORT
-            value: '10080'
+            value: '8080'
           - name: NAXSI_USE_DEFAULT_RULES
             value: 'FALSE'
           - name: ENABLE_UUID_PARAM
@@ -87,7 +87,7 @@ spec:
           - name: https
             containerPort: 10443
       - name:  pttg-euro-tlr-maintenance
-        image: quay.io/ukhomeofficedigital/pttg-enquiry-form-maintenance:02e1866d
+        image: quay.io/ukhomeofficedigital/pttg-enquiry-form-maintenance:47b0f618
         imagePullPolicy: IfNotPresent
         securityContext:
           runAsNonRoot: true
